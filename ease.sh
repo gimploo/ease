@@ -103,7 +103,7 @@ typedef struct content_t {
 
 } content_t ;
 
-void $1__init(application_t *app) 
+void $1_init(application_t *app) 
 {
     content_t cont = {
         .text = \"Hello world\\\n\" 
@@ -112,19 +112,24 @@ void $1__init(application_t *app)
     application_pass_content(app, &cont);
 }
 
-void $1__update(application_t *app) 
+void $1_update(application_t *app) 
 {
     window_t *win = application_get_window(app);
     content_t *c = application_get_content(app);
+
     window_update_user_input(win);
 }
 
-void $1__render(application_t *app) 
+void $1_render(application_t *app) 
 {
+    window_t *win = application_get_window(app);
+    content_t *c = application_get_content(app);
 }
 
-void $1__destroy(application_t *app) 
+void $1_destroy(application_t *app) 
 {
+    window_t *win = application_get_window(app);
+    content_t *c = application_get_content(app);
 }
 
 int main(void)
@@ -139,10 +144,10 @@ int main(void)
         .content = {
             .size = sizeof(content_t )
         },
-        .init       = $1__init,
-        .update     = $1__update,
-        .render     = $1__render,
-        .destroy    = $1__destroy
+        .init       = $1_init,
+        .update     = $1_update,
+        .render     = $1_render,
+        .destroy    = $1_destroy
     };
 
     application_run(&app);
