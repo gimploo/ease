@@ -8,10 +8,10 @@ desktop development.
 
 Types of options
 -------------
-        --init <project_name>   := creates a project with the given name
-        --help                  := prints the helper prompt
-        --target <platform>     := win64(default) and unix
-        --kill <project_name>   := deletes the given project safely
+    --init <project_name>   := creates a project with the given name
+    --help                  := prints the helper prompt
+    --target <platform>     := win64(default) and unix
+    --kill <project_name>   := deletes the given project safely
 
 Examples
 --------
