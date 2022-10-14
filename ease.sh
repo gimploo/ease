@@ -93,9 +93,11 @@ function main {
 }
 
 function create_main_c_file {
-echo -e "
-#define WINDOW_GLFW
+echo -e "#define WINDOW_SDL
 #include <poglib/application.h>
+
+#define WINDOW_WIDTH    920
+#define WINDOW_HEIGHT   1080
 
 typedef struct content_t {
 
@@ -137,9 +139,10 @@ int main(void)
     application_t app = {
         .window = {
             .title = \"$1\",
-            .width = 800,
-            .height = 600,
-            .aspect_ratio = (f32)800 / (f32)600
+            .width = WINDOW_WIDTH,
+            .height = WINDOW_HEIGHT,
+            .aspect_ratio = (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT,
+            .fps_limit = 60
         },   
         .content = {
             .size = sizeof(content_t )
