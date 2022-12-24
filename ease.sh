@@ -142,7 +142,8 @@ int main(void)
             .width = WINDOW_WIDTH,
             .height = WINDOW_HEIGHT,
             .aspect_ratio = (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT,
-            .fps_limit = 60
+            .fps_limit = 60,
+            .background_color = COLOR_RED
         },   
         .content = {
             .size = sizeof(content_t )
