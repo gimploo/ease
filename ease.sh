@@ -22,6 +22,15 @@ HELPER_PROMPT="
 
 "
 
+function setup_symlink_for_owner {
+
+    if [ "$USER" == "simploo" ]
+    then
+        echo "[!] OWNER RECOGNIZED!"
+        ln -s /mnt/e/dev/lib/ .
+    fi
+}
+
 function print_helper_prompt {
     printf %s "$HELPER_PROMPT" 
 }
@@ -54,6 +63,7 @@ function main {
                 download_forge $4
             else
                 download_forge "win64"
+                setup_symlink_for_owner
             fi
             cd - > /dev/null
         else
@@ -70,6 +80,10 @@ function main {
                 ./build.sh deepclean || { echo [EASE] something went wrong; return 1; }
             elif [ -f "build.bat" ]
             then
+                if [ -L "lib" ]
+                then
+                    rm lib && echo [EASE] SYMLINK FOUND, SAFELY REMOVED!
+                fi
                 cmd.exe /c build.bat deepclean || { echo [EASE] something went wrong; return 1; }
             else
                 echo "[EASE] Build script not found"
