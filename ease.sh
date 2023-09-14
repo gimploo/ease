@@ -22,12 +22,12 @@ HELPER_PROMPT="
 
 "
 
-function setup_symlink_for_owner {
+function setup_symlink_for_win {
 
     if [ "$USER" == "simploo" ]
     then
         echo "[!] OWNER RECOGNIZED!"
-        ln -s /mnt/e/dev/lib/ .
+        cmd.exe /c mklink /j lib E:\\dev\\lib
     fi
 }
 
@@ -39,12 +39,12 @@ function download_forge {
 
     if [ "$1" == "unix" ] 
     then
-        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null || cp ~/Documents/projects/forge/build.sh .
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null 
         chmod +x build.sh
         return 0
     elif [ "$1" == "win64" ] 
     then
-        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null 
         return 0
     fi
 }
@@ -63,7 +63,7 @@ function main {
                 download_forge $4
             else
                 download_forge "win64"
-                setup_symlink_for_owner
+                setup_symlink_for_win
             fi
             cd - > /dev/null
         else
@@ -99,7 +99,7 @@ function main {
         fi
     else
         print_helper_prompt
-        return 0
+        return 00
     fi
 
     echo "[EASE] Project \`$2\` successfully created"
