@@ -110,9 +110,6 @@ function create_main_c_file {
 echo -e "#define WINDOW_SDL
 #include <poglib/application.h>
 
-#define WINDOW_WIDTH    920
-#define WINDOW_HEIGHT   1080
-
 typedef struct content_t {
 
     const char *text;
@@ -121,11 +118,11 @@ typedef struct content_t {
 
 void $1_init(application_t *app) 
 {
-    content_t cont = {
+    content_t c = {
         .text = \"Hello world\\\n\" 
     };
 
-    application_pass_content(app, &cont);
+    application_pass_content(app, &c);
 }
 
 void $1_update(application_t *app) 
@@ -152,12 +149,12 @@ int main(void)
 {
     application_t app = {
         .window = {
-            .title = \"$1\",
-            .width = WINDOW_WIDTH,
-            .height = WINDOW_HEIGHT,
-            .aspect_ratio = (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT,
-            .fps_limit = 60,
-            .background_color = COLOR_RED
+            .title              = \"$1\",
+            .width              = 1080,
+            .height             = 920,
+            .aspect_ratio       = 1080.f / 920.f,
+            .fps_limit          = 60,
+            .background_color   = COLOR_GREEN
         },   
         .content = {
             .size = sizeof(content_t )
