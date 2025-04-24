@@ -22,6 +22,19 @@ HELPER_PROMPT="
 
 "
 
+function check_os {
+
+    cmd.exe /c "" 2> /dev/null
+    if [ $? == 0 ]
+    then 
+        OS="win64"
+        echo [!] WINDOWS RECOGNIZED
+    else
+        OS="unix"
+        echo [!] LINUX RECOGNIZED
+    fi
+}
+
 function setup_symlink_for_win {
 
     if [ "$USER" == "simploo" ]
@@ -51,19 +64,28 @@ function download_forge {
 
 function main {
 
+
     if [ "$1" == "--init" ]
     then
+        check_os
         if [ ! -d "$2" ] 
         then
             mkdir $2 
-            mkdir $2/src && cd $2
+            mkdir $2/src && 
+            cd $2 && 
+            git init . &&
             create_main_c_file $2
             if [ "$3" == "--target" ]
             then
                 download_forge $4
             else
-                download_forge "win64"
-                setup_symlink_for_win
+                if [ "$OS" == "WINDOWS" ]
+                then
+                    download_forge "win64"
+                    setup_symlink_for_win
+                else
+                    download_forge "unix"
+                fi
             fi
             cd - > /dev/null
         else
